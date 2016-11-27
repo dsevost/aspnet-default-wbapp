@@ -11,11 +11,18 @@ namespace WebApplication
     {
         public static void Main(string[] args)
         {
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("hosting.json", optional: true)
+                .Build();
+
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
+//                .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseConfiguration(configuration)
                 .Build();
 
             host.Run();
